@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>CraftCloud</title>
+		<meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="expires" content="mon, 06 jan 1990 00:00:01 GMT" />
+		<link rel="shortcut icon" href="//cdn.craftsv.net/WebShare/favi.ico">
+		<link href="//cdn.craftsv.net/Web/Bootstrap3/css/bootstrap.min.css" rel="stylesheet">
+		<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+		<script src="//cdn.craftsv.net/WebShare/common.js?action=SkinFile"></script>
+		<script src="//cdn.craftsv.net/WebShare/sortabletable.js?action=SkinFile"></script>
+		<script src="//cdn.craftsv.net/WebShare/RightClick.js?action=SkinFile"></script>
+		<script src="//cdn.craftsv.net/WebShare/clip.js?action=SkinFile"></script>
+		<style>a{color:#000;}a:hover{color:#000;}body{padding-top:70px;background-color:#EEE;}body,p,h1,h2,h3,h4,h5,h6{font-family:Roboto,나눔바른고딕,NanumBarunGothic,NanumBarunGothicOTF,나눔고딕,NanumGothic,맑은 고딕,굴림}div.footer{background-color:#fff;width:100%;text-align:center;}</style>
+	</head>
+	<body>
+		<div id="Navigation Bar">
+			<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+				<div class="container">
+					<div class="navbar-header">
+						<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+							<span class="sr-only">Toggle navigation</span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+						</button>
+						<a class="navbar-brand" href="/"><i class="fa fa-cloud"></i> CraftCloud</a>
+					</div>
+					<div class="collapse navbar-collapse navbar-ex1-collapse">
+						<ul class="nav navbar-nav">
+							<li><a onclick='history.back()'><i class="fa fa-arrow-left"></i></a></li>
+							<li><a onclick="location.reload()"><i class="fa fa-refresh"></i></a></li>
+							#if( $upload_path )
+								<li><a href='/$skin/upload_frame.html?action=SkinFile#$upload_path*$skin'><i class="fa fa-upload"></i></a></li>
+								<li><a href='#새 폴더' onclick="onMkdir()"><i class="fa fa-plus"></i><i class="fa fa-folder-o"></i></a></li>
+							#end
+							<li><a href='http://blog.naver.com/PostList.nhn?blogId=estoque01&from=postList&categoryNo=95'><small><i class="fa fa-paper-plane"></i> 업데이트 및 소식 확인</small></a></li>
+						</ul>
+						<ul class="nav navbar-nav navbar-right">
+							<li class="dropdown">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-search"></i></a>
+								<ul class="dropdown-menu" style="text-align: center" align="center">
+									<p>IMEI to KDZ<small><small> only LG</small></small></p>
+									<form action="https://craftsv.net/craftcloud/php/insert.php" method="post">
+										<table>
+											<tr><th><input type="text" placeholder="IMEI" name="IMEI" /></th><th><button type="submit" class="btn btn-default btn-xs">검색</button></th></tr>
+										</table>
+									</form>
+								</ul>
+							</li>
+							#if( $current_login_id )
+							<li><a href='.?action=Logout'><i class="fa fa-sign-out"></i> 로그아웃</a></li>
+							#else
+							<li><a href='.?action=Login'><i class="fa fa-sign-in"></i> 로그인</a></li>
+							#end
+						</ul>
+					</div>
+				</div>
+			</nav>
+		</div>
+		<div id="Content">
+			<div class="container">
+				#if( $files )<div class="panel panel-default">#else<div class="panel panel-danger">#end
+					<div class="panel-heading"><strong><i class="fa fa-folder-open-o"></i> Explorer</strong></div>
+					<div class="panel-body">
+						#if( $show_files )
+						<ol class='breadcrumb'>
+							<strong>경로:</strong> <li>$address</li>
+						</ol>
+						<table class="table table-hover">
+							<thead>
+								<tr>
+									<th><i class="fa fa-tags"></i> 파일, 폴더 명</th>
+								</tr>
+							</thead>
+							<tbody>
+								#foreach( $files )
+								<tr>
+									<td class="filename"><a href="$link" onclick="copy(this.href); return false;"><i class="fa fa-link"></i></a> <a href="$link" data-toggle="tooltip" title="$size 바이트 / $date">$name</a></td>
+								</tr>
+								#end
+							</tbody>
+						</table>
+						#end
+						#if( $content )
+							#if( $files )
+								#else
+								<p>$content</p>
+								<a href="/"><button class="btn btn-xs btn-danger"><i class="fa fa-external-link"></i> 돌아가기</button></a>
+							#end
+						#end
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="footer">
+			<div class="footer">
+				<p></br></p>
+				<p><strong>&copy; 2015 Force</strong></p>
+				<p>후원, 파일 삭제: support@craftsv.net <small>or KakaoTalk: Estoque01</small></p>
+				<p></br></p>
+				<p>
+					We recommend Google Chrome.</br>
+					<small>Compatible Browsers: IE9+, Chrome, Firefox</small>
+				</p>
+				<p></br></p>
+				<p></br></p>
+			</div>
+		</div>
+		#if( $upload_path )
+		<div style="visibility:hidden"><form method="GET" action="." name="MkdirForm"><input type="hidden" name="action" value="MakeDirectory"><input type="hidden" name="name"></form></div>
+		#end
+	</body>
+</html>
